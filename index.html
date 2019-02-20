@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Page Title</title>
+  <title>Restaurant Inspection Results Data Visualization</title>
+  <link rel="stylesheet" type="text/css" href="http://www.amyskywyl.com/restaurant-inspection-results-visualization/css/flaticon.css">
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css?family=Hind+Siliguri" rel="stylesheet">
   <script src="https://use.fontawesome.com/2f18af269b.js"></script>
 
@@ -119,7 +121,7 @@
 
           <div class="button-filter-container">
             <h3>Filter by</h3>
-            <button class="violation-filter-button" type="button" name="filter" value="Evidence of rodents">Evidence of rodents</button>
+            <button class="violation-filter-button" type="button" name="filter" value="Evidence of rodents"><i class="flaticon-grade"></i>Evidence of rodents</button>
             <button class="violation-filter-button" type="button" name="filter" value="Evidence of insects">Evidence of insects</button>
             <button class="violation-filter-button" type="button" name="filter" value="Food temperature">Food temperature</button>
             <button class="violation-filter-button" type="button" name="filter" value="Improper chemicals">Improper chemicals</button>
@@ -134,11 +136,10 @@
           <button id="violation-barchart-button" type="button" name="barchart" value="violation">Violation frequency</button>
           <button id="grade-barchart-button" type="button" name="barchart" value="grade">Health grade frequency</button>
           
-          <svg id="chart" width="500" height="450">
+          <h4 id="chart-label">
+          </h4>
+          <svg id="chart" width="400" height="300">
           </svg>
-          <h6 id="chart-label">
-            This is my graph description it should not be too long but oh what the hell
-          </h6>
         </div>
         
       </section>
@@ -153,12 +154,14 @@
             <a href="mailto:amyskywyl@gmail.com" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
           </section>
       </footer>
-    </section>    
- 
-    <div id="map"></div>
-    <div class="legend-container">
-      <div id="display-text"></div>
-      <div id="progress-bar"></div>
+    </section>
+       
+    <div class="map-container">
+      <div id="map"></div>
+      <div class="legend-container">
+        <div id="display-text"></div>
+        <div id="progress-bar"></div>
+      </div>
     </div>
 
     <section id="modal">
