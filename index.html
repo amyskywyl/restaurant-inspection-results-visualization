@@ -4,18 +4,188 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Page Title</title>
+  <link href="https://fonts.googleapis.com/css?family=Hind+Siliguri" rel="stylesheet">
+  <script src="https://use.fontawesome.com/2f18af269b.js"></script>
+
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+  <link rel="stylesheet" type="text/css" media="screen" href="./css/index.css" />
   <script src="dist/main.bundle.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVjk8om8oQMmUUx4pA8dMKNVtXkQv9dXE&callback=initMap" async defer></script>
-</head>
-<body>
-  <h3>My Google Maps Demo</h3>
-  <script type="text/javascript" src="./lib/map.js"></script>
+  </head>
+  <body>
+    <!-- <h3>My Google Maps Demo</h3> -->
+    <script type="text/javascript" src="./data/mergedFile.js"></script>
+    <script type="text/javascript" src="./lib/data.js"></script>
+    <script type="text/javascript" src="./lib/map.js"></script>
+    <script type="text/javascript" src="./lib/chart.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVjk8om8oQMmUUx4pA8dMKNVtXkQv9dXE&libraries=visualization&callback=initMap" async defer></script>
+
+    <script>
+      let selectedCuisine;
+      var allCuisineTypes = ["Afghan", "African", "American", "Armenian", "Asian", "Australian", "Bagels/Pretzels", "Bakery", "Bangladeshi", "Barbecue", "Bottled beverages, including water, sodas, juices, etc.", "Brazilian", "Cafe/Coffee/Tea", "Californian", "Caribbean", "Chicken", "Chinese", "Chinese/Cuban", "Chinese/Japanese", "Continental", "Creole", "Creole/Cajun", "Delicatessen", "Donuts", "Eastern European", "Egyptian", "English", "Ethiopian", "Filipino", "French", "Fruits/Vegetables", "German", "Greek", "Hamburgers", "Hawaiian", "Hotdogs", "Hotdogs/Pretzels", "Ice Cream, Gelato, Yogurt, Ices", "Indian", "Indonesian", "Iranian", "Irish", "Italian", "Japanese", "Jewish/Kosher", "Juice, Smoothies, Fruit Salads", "Korean", "Latin (Cuban, Dominican, Puerto Rican, South & Central American)", "Mediterranean", "Mexican", "Middle Eastern", "Moroccan", "Not Listed/Not Applicable", "Nuts/Confectionary", "Other", "Pakistani", "Pancakes/Waffles", "Peruvian", "Pizza", "Pizza/Italian", "Polish", "Polynesian", "Portuguese", "Russian", "Salads", "Sandwiches", "Sandwiches/Salads/Mixed Buffet", "Scandinavian", "Seafood", "Soul Food", "Soups", "Soups & Sandwiches", "Spanish", "Steak", "Tapas", "Tex-Mex", "Thai", "Turkish", "Vegetarian", "Vietnamese/Cambodian/Malaysia"]
+      document.addEventListener("DOMContentLoaded", () => {
+
+        let violationButtons = document.getElementsByClassName("violation-filter-button")
+        for (let i = 0; i < violationButtons.length; i++) {
+          violationButtons[i].addEventListener("click", (e) => {
+            initMap(e.currentTarget.value);
+          })
+        }
+
+       
+        let violationCuisineOption = document.getElementById("add-violation-filter")
+        violationCuisineOption.addEventListener("click", (e) => {
+          toggle(violationCuisineOption)
+        })
+
+        function toggle(button) {
+          if (button.className == "off") {
+            button.className = "on"
+            if (selectedCuisine) {
+              getViolationCuisineData(selectedCuisine);
+            }
+          } else {
+            button.className = "off"
+          }
+        }
+
+        for (let i = 0; i < allCuisineTypes.length; i++) {
+          var opt = document.createElement("option");
+          document.getElementById("select-cuisine").innerHTML += '<option id="' + i + '">' + allCuisineTypes[i] + '</option>';
+        }
+
+        let cuisineOption = document.getElementById("select-cuisine")
+        cuisineOption.addEventListener("change", (e) => {
+          selectedCuisine = e.currentTarget.value;
+          if (violationCuisineOption.className == "on") {
+            getViolationCuisineData(e.currentTarget.value);
+          } else {
+            initMap(e.currentTarget.value, getCuisineData);
+          }
+        })
+
+        
+        let displayViolationBar = document.getElementById("violation-barchart-button")
+        displayViolationBar.addEventListener("click", (e) => {
+          renderBarChart("violation");
+        })
+
+        let displayGradeBar = document.getElementById("grade-barchart-button")
+        displayGradeBar.addEventListener("click", (e) => {
+          renderBarChart("grade");
+        })
+
+        let displayYear = document.getElementById("display-year")
+        displayYear.addEventListener("click", (e) => {
+          getAnnualData();
+        })
+
+        document.getElementById('about').onclick = () => {
+          document.getElementById('modal').style.display = 'block';
+        };
+
+        document.getElementById('modal').onclick = () => {
+          document.getElementById('modal').style.display = 'none';
+        };
+      })
+
+    </script>
+
   <!--The div element for the map -->
-      <div id="map" style="height:500px; width: 500px;">
 
+ 
+  <main>
+    <section class="left">
+    
+      <h1>Restaurant Inspection Results Data Visualization</h1>
+      <h3>A visualization of Manhattan restaurant inspection results in year 2018.</h3>
+    
+      <section class="toggle-container">
+        <div>
+          <div class="time-lapse-toggles-container">
+            <h3>Time Lapse</h3>
+            <button id="display-year" class="display-month-button" type="button" name="year-2018">Display every month</button>          
+          </div>
+            
+            
+          <div class="double-filter-container">
+            <h3>Cuisine x Violation</h3>
+            <button class="off" id="add-violation-filter" type="button" name="add-violation-layer">Add violation lapse</button>
+            <select id="select-cuisine">
+              <option selected disabled> Select Cuisine filter</option>
+            </select>
+          </div>
 
-      </div>
+          <div class="button-filter-container">
+            <h3>Filter by</h3>
+            <button class="violation-filter-button" type="button" name="filter" value="Evidence of rodents">Evidence of rodents</button>
+            <button class="violation-filter-button" type="button" name="filter" value="Evidence of insects">Evidence of insects</button>
+            <button class="violation-filter-button" type="button" name="filter" value="Food temperature">Food temperature</button>
+            <button class="violation-filter-button" type="button" name="filter" value="Improper chemicals">Improper chemicals</button>
+            <button class="violation-filter-button" type="button" name="filter" value="Not fresh food">Not fresh food</button>
+            <button class="violation-filter-button" type="button" name="filter" value="Facility problems">Facility problems</button>
+            <button class="violation-filter-button" type="button"  name="filter" value="Hygiene">Personal, food, kitchenware hygiene</button>
+          </div>
+        </div>
+
+        <div id="chart-div" class="chart-container">
+          <h3>Bar chart</h3>
+          <button id="violation-barchart-button" type="button" name="barchart" value="violation">Violation frequency</button>
+          <button id="grade-barchart-button" type="button" name="barchart" value="grade">Health grade frequency</button>
+          
+          <svg id="chart" width="500" height="450">
+          </svg>
+          <h6 id="chart-label">
+            This is my graph description it should not be too long but oh what the hell
+          </h6>
+        </div>
+        
+      </section>
+      <footer>
+        <h2 id="about">About</h2>
+          <section class="icons">
+            <a href="http://www.amyskywyl.com/" target="_blank"><i class="fa fa-laptop" aria-hidden="true"></i></a>
+            <a href="https://www.linkedin.com/in/yilin-wang-amyskywyl/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+            <a href="https://angel.co/amyskywyl" target="_blank"><i class="fa fa-angellist" aria-hidden="true"></i></a>
+            <a href="https://github.com/amyskywyl/restaurant-inspection-results-visualization" target="_blank"><i class="fa fa-github"
+                aria-hidden="true"></i></a>
+            <a href="mailto:amyskywyl@gmail.com" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+          </section>
+      </footer>
+    </section>    
+ 
+    <div id="map"></div>
+    <div class="legend-container">
+      <div id="display-text"></div>
+      <div id="progress-bar"></div>
+    </div>
+
+    <section id="modal">
+      <section class="about">
+        <h2>About</h2>
+    
+        <p>
+          This visualization uses publicly available New York City restaurant inpection results data along with Google Heatmaps to show restaurant health score in
+          year 2018.
+        </p>
+        <p>
+          A heatmap is a visualization used to depict the intensity of data at geographical points.
+        </p>
+        <p>
+          By default, areas of higher intensity will be colored red, and areas of lower intensity will appear green.
+        </p>
+        <p>
+          I adjusted the weight to affect the intensity so that a location with worse health score will have more red color. A location with grade A (score range 0 - 13) will weight the same.
+        </p>
+        <p>
+          For more information, check out the repo on <a href="https://github.com/amyskywyl/restaurant-inspection-results-visualization"
+            target="_blank">Github</a>.
+        </p>
+      </section>
+    </section>
+
+  </main>
+   
 </body>
 </html>
