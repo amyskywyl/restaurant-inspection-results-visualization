@@ -78,6 +78,7 @@ main {
   margin-left: 0px;
 }
 
+
 #modal {
   z-index: 10;
   position: fixed;
@@ -86,6 +87,8 @@ main {
   background-color: rgba(0,0,0);
   background-color: rgba(0,0,0,0.4);
   display: none;
+  justify-content: center;
+  align-items: center;
 }
 
 a {
@@ -101,6 +104,8 @@ h3 {
 }
 
 button {
+  display: inline-flex;
+  align-items: center; 
   cursor: pointer;
   background: transparent;
   background-color: #3C3C3C;
@@ -257,6 +262,7 @@ i:hover {
   border: 2px solid #E5A3AD;
   margin: 20px;
   border-radius: 8px;
+  padding-bottom: 20px;
 }
 
 #chart-div h4 {
@@ -274,3 +280,14 @@ i:hover {
 .bar:hover {
   fill: #E5A3AD;
 }
+
+.filter-icon {
+  display: inline-flex;
+  align-self: center;
+  height: 25px;
+  width: 25px;
+  padding-right: 8px;
+}
+
+/* .icon svg {
+} */
