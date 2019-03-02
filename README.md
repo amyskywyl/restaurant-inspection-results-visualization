@@ -24,6 +24,7 @@ The different controls are:
 
 #### Time Lapse
 - [ ] Display every month - displays a time lapse of all of the inspection results graded per month for year 2018
+
 See the gif for Time Laspe:
 
 ![inspection_results](./images/inspection_results2.gif)
