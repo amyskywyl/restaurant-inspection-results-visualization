@@ -5,24 +5,28 @@
 ### Background
 
 Restaurant's hygene level is really important to people's health, especially for city people who rely on them everyday. Over the past 3 years there has been over 385,000 violations in NYC alone.
-This visualization uses data in 2018 provided by the NYC OpenData to give some insights on the frequency, location and causation of these violations.
+This visualization uses DOHMH New York City Restaurant Inspection Results data in Manhattan, 2018 provided by the NYC OpenData to give some insights on the frequency, location and causation of these violations.
 
 
 ### Features  
 
 With this app, users will be able to:
+- [ ] Visualize the general pattern of restaurants inspection grade on the heatmap mainly by the score, not just by the density of resturants in a region. I adjusted the weight to affect the intensity so that a location with worse health score will have more red color. A location with grade A (score range 0 - 13) will weight the same.
 - [ ] Identify locations where better/worse hygene restaurants clustered
 - [ ] Differentiate between violation reasons
 - [ ] Identify areas where inspection results improved
-- [ ] Visualize the general pattern of restaurants inspection grade
 
 ### Getting Started
 
 On the left hand side of the screen there is a series of buttons allowing the user to experience the data representation based on various factors. There are three main modes: a dynamic representation, a double filter, a static representation, and a barplot giving more information about the data overall. The dynamic representation is where the data changes over a time frame specified by the control activated. The double filter is a mixture of a dynamic representation and a static representation.
 The different controls are:
 
+
 #### Time Lapse
 - [ ] Display every month - displays a time lapse of all of the inspection results graded per month for year 2018
+See the gif for Time Laspe:
+
+![inspection_results](./images/inspection_results2.gif)
 
 #### Cuisine x Violation
 - [ ] Select cuisine filter - displays the inspection results for the selected cuisine type
@@ -42,7 +46,7 @@ The different controls are:
 - [ ] Health grade frequency - shows the frequency of each health grade throughout the entire dataset
 
 ### Screenshot
-![image of app](./images/readme_image.png)
+![image of app](./images/inspection_results.png)
 
 
 ### Technologies
