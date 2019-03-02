@@ -4,14 +4,14 @@
 
 ### Background
 
-Restaurant's hygene level is really important to people's health, especially for city people who rely on them everyday. Over the past 3 years there has been over 385,000 violations in NYC alone.
+Restaurant's hygene level is really important to people's health, especially for city people who rely on them everyday. Over the past 3 years there has been over 385,000 health code violations in NYC alone.
 This visualization uses DOHMH New York City Restaurant Inspection Results data in Manhattan, 2018 provided by the NYC OpenData to give some insights on the frequency, location and causation of these violations.
 
 
 ### Features  
 
 With this app, users will be able to:
-- [ ] Visualize the general pattern of restaurants inspection grade on the heatmap mainly by the score, not just by the density of resturants in a region. I adjusted the weight to affect the intensity so that a location with worse health score will have more red color. A location with grade A (score range 0 - 13) will weight the same.
+- [ ] Visualize the general pattern of restaurants inspection grade on the heatmap mainly by the score, not just by the density of resturants in a region. I adjusted the weight to affect the intensity so that a location with worse health score will have more red color. Locations with grade A (score range 0 - 13) will weigh the same.
 - [ ] Identify locations where better/worse hygene restaurants clustered
 - [ ] Differentiate between violation reasons
 - [ ] Identify areas where inspection results improved
