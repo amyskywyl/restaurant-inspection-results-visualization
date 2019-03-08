@@ -7,6 +7,9 @@
   <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css?family=Hind+Siliguri" rel="stylesheet">
   <script src="https://use.fontawesome.com/2f18af269b.js"></script>
+  
+  <!-- Include a polyfill for ES6 Promises (optional) for IE11 -->
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.js"></script>
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -433,6 +436,7 @@
           </div>
         </div>
 
+        <div class="error-message"></div>
         <div id="chart-div" class="chart-container">
           <h3>Bar chart</h3>
           <button id="violation-barchart-button" type="button" name="barchart" value="violation">
