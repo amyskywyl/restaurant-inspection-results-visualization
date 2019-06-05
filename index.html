@@ -283,13 +283,13 @@
         })
 
         function toggle(button) {
-          if (button.className == "off") {
-            button.className = "on"
+          if (button.className.includes("off")) {
+            button.className.replace("off", "on");
             if (selectedCuisine) {
               getViolationCuisineData(selectedCuisine);
             }
           } else {
-            button.className = "off"
+            button.className.replace("on", "off");
           }
         }
 
@@ -307,6 +307,40 @@
             initMap(e.currentTarget.value, getCuisineData);
           }
         })
+
+        // Get the container element
+        let filterContainer = document.getElementById("filters");
+
+        // Get all buttons with class="filter-button" inside the container
+        let filterBtns = document.getElementsByClassName("filter-button");
+
+        // Loop through the buttons and add the active class to the current/clicked button
+        for (let i = 0; i < filterBtns.length; i++) {
+          filterBtns[i].addEventListener("click", function () {
+            if(filterContainer.getElementsByClassName("active").length > 0) {
+              let current = filterContainer.getElementsByClassName("active");
+              current[0].className = current[0].className.replace(" active", "");
+            }
+            this.className += " active";
+          });
+        }
+
+        // Get the container element
+        let barchartContainer = document.getElementById("chart-div");
+
+        // Get all buttons with name="barchart" inside the container
+        let barchartBtns = document.getElementsByClassName("barchart-button");
+
+        // Loop through the buttons and add the active class to the current/clicked button
+        for (let i = 0; i < barchartBtns.length; i++) {
+          barchartBtns[i].addEventListener("click", function () {
+            if(barchartContainer.getElementsByClassName("active").length > 0) {
+              let current = barchartContainer.getElementsByClassName("active");
+              current[0].className = current[0].className.replace(" active", "");
+            }
+            this.className += " active";
+          });
+        }
 
         
         let displayViolationBar = document.getElementById("violation-barchart-button")
@@ -345,10 +379,10 @@
       <h3>A visualization of Manhattan restaurant inspection results in year 2018.</h3>
     
       <section class="toggle-container">
-        <div>
+        <div id="filters">
           <div class="time-lapse-toggles-container">
             <h3>Time Lapse</h3>
-            <button id="display-year" class="display-month-button" type="button" name="year-2018">
+            <button id="display-year" class="display-month-button filter-button" type="button" name="year-2018">
               <div class="filter-icon">
                 <svg class="icon">
                   <use xlink:href="#weekly-calendar" />
@@ -370,7 +404,7 @@
                 Select cuisine filter
               </option>
             </select>
-            <button class="off" id="add-violation-filter" type="button" name="add-violation-layer">
+            <button class="off filter-button" id="add-violation-filter" type="button" name="add-violation-layer">
               <div class="filter-icon">
                 <svg class="icon">
                   <use xlink:href="#rat" />
@@ -382,7 +416,7 @@
 
           <div class="button-filter-container">
             <h3>Filter by</h3>
-            <button class="violation-filter-button" type="button" name="filter" value="Evidence of rodents">
+            <button class="violation-filter-button filter-button" type="button" name="filter" value="Evidence of rodents">
               <div class="filter-icon">
                 <svg class="icon">
                 <use xlink:href="#rat" />
@@ -390,7 +424,7 @@
               </div>
               Evidence of rodents
           </button>
-            <button class="violation-filter-button" type="button" name="filter" value="Evidence of insects">
+            <button class="violation-filter-button filter-button active" type="button" name="filter" value="Evidence of insects">
               <div class="filter-icon">
                 <svg class="icon">
                   <use xlink:href="#plague" />
@@ -398,35 +432,35 @@
               </div>
               Evidence of insects
             </button>
-            <button class="violation-filter-button" type="button" name="filter" value="Food temperature">
+            <button class="violation-filter-button filter-button" type="button" name="filter" value="Food temperature">
               <div class="filter-icon">
                 <svg class="icon">
                   <use xlink:href="#thermostat" />
                 </svg>
               </div>
               Food temperature</button>
-            <button class="violation-filter-button" type="button" name="filter" value="Improper chemicals">
+            <button class="violation-filter-button filter-button" type="button" name="filter" value="Improper chemicals">
               <div class="filter-icon">
                 <svg class="icon">
                   <use xlink:href="#potion" />
                 </svg>
               </div>
               Improper chemicals</button>
-            <button class="violation-filter-button" type="button" name="filter" value="Not fresh food">
+            <button class="violation-filter-button filter-button" type="button" name="filter" value="Not fresh food">
               <div class="filter-icon">
                 <svg class="icon">
                   <use xlink:href="#diet" />
                 </svg>
               </div>
               Not fresh food</button>
-            <button class="violation-filter-button" type="button" name="filter" value="Facility problems">
+            <button class="violation-filter-button filter-button" type="button" name="filter" value="Facility problems">
               <div class="filter-icon">
                 <svg class="icon">
                   <use xlink:href="#kitchen" />
                 </svg>
               </div>
               Facility problems</button>
-            <button class="violation-filter-button" type="button"  name="filter" value="Hygiene">
+            <button class="violation-filter-button filter-button" type="button"  name="filter" value="Hygiene">
               <div class="filter-icon">
                 <svg class="icon">
                   <use xlink:href="#wash" />
@@ -439,14 +473,14 @@
         <div class="error-message"></div>
         <div id="chart-div" class="chart-container">
           <h3>Bar chart</h3>
-          <button id="violation-barchart-button" type="button" name="barchart" value="violation">
+          <button class="barchart-button" id="violation-barchart-button" type="button" name="barchart" value="violation">
             <div class="filter-icon">
               <svg class="icon">
                 <use xlink:href="#rat" />
               </svg>
             </div>
             Violation frequency</button>
-          <button id="grade-barchart-button" type="button" name="barchart" value="grade">
+          <button class="barchart-button" id="grade-barchart-button" type="button" name="barchart" value="grade">
             <div class="filter-icon">
               <svg class="icon">
                 <use xlink:href="#exam" />

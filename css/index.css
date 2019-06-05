@@ -127,6 +127,11 @@ button:hover {
   background-color: #252323;
 }
 
+.active {
+  background: transparent;
+  background-color:black;
+}
+
 select {
   cursor: pointer;
   background: transparent;
@@ -257,7 +262,7 @@ i:hover {
   flex-direction: column;
   align-items: center;
   font-size: 1.1em;
-  width: 400px;
+  width: 50%;
   height: 100%;
   border: 2px solid #E5A3AD;
   margin: 20px;
